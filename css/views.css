@@ -194,3 +194,6 @@ body[data-theme="midnight"] .paw, body[data-theme="oxblood"] .paw, body[data-the
   .topbar, .site-footer, .tray-details, .sheet-toolbar, .sheet-status, .journal-left, .lesson-side { display: none !important; }
   body { background: #fff; }
 }
+
+/* footer credit links: 44px touch targets on every device */
+footer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .3em; }
