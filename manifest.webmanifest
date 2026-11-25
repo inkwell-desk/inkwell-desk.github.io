@@ -1,0 +1,13 @@
+{
+  "name": "Inkwell — calligraphy & journaling desk",
+  "short_name": "Inkwell",
+  "description": "Pressure-sensitive pens, real-feeling papers, guided calligraphy lessons and a wax-sealed daily journal. Every stroke saved as a replayable vector.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1430",
+  "theme_color": "#0b1430",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

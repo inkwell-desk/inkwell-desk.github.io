@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inkwell — a calligraphy &amp; journaling desk</title>
+<meta name="description" content="Inkwell is a free, offline-friendly calligraphy and journaling desk: pressure-sensitive brush, fountain, italic, dip-pen, marker and pencil on real-feeling papers, guided lessons with stroke scoring, a daily journal with stamps and wax seals, and replayable 'watch me write' playback.">
+<meta property="og:title" content="Inkwell — a calligraphy &amp; journaling desk">
+<meta property="og:description" content="Pressure-sensitive pens, ink bleed, paper grain, guided calligraphy lessons, a wax-sealed daily journal — and every stroke saved as a replayable vector.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kumarnikhildeveloperaccount.github.io/inkwell/">
+<meta name="theme-color" content="#0b1430">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/desk.css">
+<link rel="stylesheet" href="css/views.css">
+</head>
+<body data-theme="midnight">
+<a class="skip" href="#main">Skip to the desk</a>
+
+<!-- Intro: a nib signs the name, then the card slides away -->
+<div id="intro" class="intro" aria-hidden="true">
+  <div class="intro-card">
+    <svg viewBox="0 0 600 180" class="intro-svg" role="presentation">
+      <text x="300" y="118" text-anchor="middle" class="intro-word">Inkwell</text>
+      <path class="intro-flourish" d="M120 140 C 220 160, 380 160, 500 132 C 520 128, 530 134, 515 142"/>
+    </svg>
+    <p class="intro-sub">uncapping the pens…</p>
+  </div>
+</div>
+
+<header class="topbar">
+  <a class="brand" href="#desk" id="brand" aria-label="Inkwell home">
+    <svg class="brand-ink" id="brandInk" viewBox="0 0 48 48" aria-hidden="true">
+      <defs>
+        <linearGradient id="bGlass" x1="0" x2="1"><stop offset="0" stop-color="#2b3d78"/><stop offset=".5" stop-color="#0f1a3d"/><stop offset="1" stop-color="#22336a"/></linearGradient>
+        <linearGradient id="bBrass" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f6e2a4"/><stop offset=".5" stop-color="#c9a24a"/><stop offset="1" stop-color="#7a5a1e"/></linearGradient>
+      </defs>
+      <path d="M10 22 Q10 16 16 16 H32 Q38 16 38 22 V38 Q38 44 32 44 H16 Q10 44 10 38Z" fill="url(#bGlass)" stroke="#c9a24a" stroke-width="1.2"/>
+      <path class="brand-ink-level" d="M12 30 Q24 27 36 30 V38 Q36 42 32 42 H16 Q12 42 12 38Z" fill="#1d4fb3" opacity=".85"/>
+      <rect x="17" y="9" width="14" height="8" rx="2" fill="url(#bBrass)"/>
+      <path d="M30 3 L22 25 L24 26 L33 5Z" fill="url(#bBrass)" stroke="#5a3f12" stroke-width=".6"/>
+      <path d="M14 20 Q16 18 20 18" stroke="#fff" stroke-opacity=".35" stroke-width="1.5" fill="none"/>
+    </svg>
+    <span class="brand-text"><span class="brand-name">Inkwell</span><small>calligraphy &amp; journaling desk</small></span>
+  </a>
+  <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="mainNav" class="mainnav" aria-label="Main">
+    <a href="#desk" data-nav="desk">Writing desk</a>
+    <a href="#lessons" data-nav="lessons">Lessons</a>
+    <a href="#journal" data-nav="journal">Journal</a>
+    <a href="#library" data-nav="library">Library</a>
+    <a href="#about" data-nav="about">About</a>
+  </nav>
+  <div class="top-actions">
+    <label class="sr-only" for="themeSel">Desk theme</label>
+    <select id="themeSel" class="brass-select" title="Desk theme">
+      <option value="midnight">Midnight Ink</option>
+      <option value="ivory">Ivory &amp; Brass</option>
+      <option value="oxblood">Oxblood Leather</option>
+      <option value="sumi">Sumi &amp; Vermilion</option>
+    </select>
+    <button id="soundBtn" class="icon-btn" aria-pressed="false" title="Sound is off — click to hear the nib">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="snd-on" d="M16 8c1.5 1.2 1.5 6.8 0 8M18.5 5.5c3 2.6 3 10.4 0 13" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/><path class="snd-off" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="sr-only">Toggle sound</span>
+    </button>
+    <span id="saveState" class="save-state" role="status" aria-live="polite"><i class="blot" aria-hidden="true"></i><span class="save-text">Opening the drawer…</span></span>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ============ WRITING DESK ============ -->
+  <section id="view-desk" class="view" data-view="desk" aria-labelledby="deskHeading">
+    <h1 id="deskHeading" class="sr-only">Writing desk</h1>
+    <div class="desk-grid">
+      <details class="tray-details" id="deskTrayWrap" open>
+        <summary class="tray-summary">Pens, inks &amp; paper</summary>
+        <div class="tray" id="deskTrayHost" aria-label="Pens and inks"></div>
+        <div class="tray-paper">
+          <label class="field"><span>Paper</span>
+            <select id="deskPaper" class="brass-select"></select></label>
+          <label class="field"><span>Ruling</span>
+            <select id="deskRuling" class="brass-select">
+              <option value="none">Blank</option>
+              <option value="lines">Lined</option>
+              <option value="italic">Italic guidelines (5°)</option>
+              <option value="copperplate">Copperplate guidelines (55°)</option>
+              <option value="grid">Grid</option>
+              <option value="dots">Dot grid</option>
+            </select></label>
+          <p class="paper-desc" id="paperDesc"></p>
+        </div>
+      </details>
+
+      <div class="sheet-area">
+        <div class="sheet-toolbar" role="toolbar" aria-label="Sheet actions">
+          <label class="sr-only" for="deskTitle">Sheet title</label>
+          <input id="deskTitle" class="title-input" maxlength="80" value="Untitled sheet" spellcheck="false">
+          <div class="tb-group">
+            <button class="brass-btn" id="deskNew" title="New sheet">New</button>
+            <button class="brass-btn icon-only" id="deskUndo" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 010 12h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" transform="translate(0,-3)"/></svg></button>
+            <button class="brass-btn icon-only" id="deskRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"><svg viewBox="0 0 24 24"><path d="M15 7l5 5-5 5M20 12H10a6 6 0 000 12h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" transform="translate(0,-3)"/></svg></button>
+            <button class="brass-btn" id="deskClear" title="Clear the sheet">Clear</button>
+          </div>
+          <div class="tb-group">
+            <button class="brass-btn play" id="deskPlay" title="Watch me write (P)" aria-pressed="false"><span class="play-ico" aria-hidden="true"></span><span class="lbl">Watch me write</span></button>
+            <label class="sr-only" for="deskSpeed">Playback speed</label>
+            <select id="deskSpeed" class="brass-select small"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option><option value="8">8×</option></select>
+            <button class="brass-btn" id="deskZoom" title="Zoom the sheet" aria-label="Zoom">1×</button>
+          </div>
+          <div class="tb-group menu-wrap">
+            <button class="brass-btn" id="deskExportBtn" aria-haspopup="true" aria-expanded="false" aria-controls="deskExportMenu">Export ▾</button>
+            <div class="menu" id="deskExportMenu" role="menu" hidden>
+              <button role="menuitem" id="exPng">PNG image (2×)</button>
+              <button role="menuitem" id="exSvg">SVG vectors</button>
+              <button role="menuitem" id="exInk">.inkwell file (replayable)</button>
+            </div>
+            <button class="brass-btn" id="deskImport" title="Import a .inkwell file">Import</button>
+          </div>
+        </div>
+
+        <div class="blotter">
+          <div class="sheet-scroller" id="deskScroller">
+            <div class="sheet" id="deskSheet" tabindex="0" aria-label="Writing sheet. Draw with a pen, finger or mouse.">
+              <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+              <div class="sheet-empty" id="deskEmpty" aria-hidden="true">
+                <span>The page is listening.</span>
+                <small>Write something. Press harder with a stylus, or slow down with a mouse — slow strokes are thicker.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-status">
+          <div class="gauge" aria-hidden="true">
+            <svg viewBox="0 0 80 46">
+              <path d="M8 42 A32 32 0 0 1 72 42" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="5"/>
+              <path d="M8 42 A32 32 0 0 1 72 42" fill="none" stroke="url(#bBrass)" stroke-width="2"/>
+              <g id="gaugeNeedle" class="gauge-needle"><line x1="40" y1="42" x2="40" y2="14" stroke="#e85b3a" stroke-width="2" stroke-linecap="round"/></g>
+              <circle cx="40" cy="42" r="4" fill="url(#bBrass)"/>
+              <g id="gaugeTilt" class="gauge-tilt"><line x1="68" y1="10" x2="68" y2="2" stroke="currentColor" stroke-width="1.5"/></g>
+            </svg>
+          </div>
+          <span id="gaugeLabel" class="gauge-label">pressure —</span>
+          <span id="deskCount" class="count">0 strokes</span>
+          <span id="deskHint" class="hint">Tip: <kbd>1</kbd>–<kbd>8</kbd> switch pens, <kbd>[</kbd> <kbd>]</kbd> size.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LESSONS ============ -->
+  <section id="view-lessons" class="view" data-view="lessons" aria-labelledby="lessonsHeading" hidden>
+    <div class="lessons-grid">
+      <aside class="lesson-side leather">
+        <h1 id="lessonsHeading" class="section-title">Guided lessons</h1>
+        <p class="muted small">Trace the ghost, follow the numbers, earn brass stars. Calligraphy: the art of making one letter take twenty minutes.</p>
+        <div class="course-tabs" id="courseTabs" role="tablist" aria-label="Courses"></div>
+        <h2 class="side-h">Letters &amp; strokes</h2>
+        <div class="glyph-list" id="glyphList" role="list"></div>
+      </aside>
+      <div class="lesson-main">
+        <div class="lesson-head">
+          <div>
+            <h2 id="lessonTitle" class="lesson-title">Choose a lesson</h2>
+            <p id="lessonStep" class="lesson-step" aria-live="polite"></p>
+          </div>
+          <div class="tb-group">
+            <button class="brass-btn" id="lsDemo">Watch the master</button>
+            <button class="brass-btn" id="lsRetry">Again</button>
+            <button class="brass-btn" id="lsGhost" aria-pressed="true" title="Show or hide the ghost guide">Ghost: on</button>
+            <label class="sr-only" for="lessonPen">Lesson pen</label>
+            <select id="lessonPen" class="brass-select small">
+              <option value="default">Course pen</option>
+              <option value="italic">Italic nib</option>
+              <option value="dip">Dip pen</option>
+              <option value="brush">Sumi brush</option>
+              <option value="fountain">Fountain pen</option>
+              <option value="pencil">Pencil</option>
+            </select>
+          </div>
+        </div>
+        <div class="blotter lesson-blotter">
+          <div class="sheet lesson-sheet" id="lessonSheet" tabindex="0" aria-label="Practice sheet. Trace the ghost strokes in order.">
+            <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="lesson-foot">
+          <button class="brass-btn" id="lsPrev">‹ Previous</button>
+          <div class="score-panel" id="scorePanel" aria-live="polite">
+            <div class="score-bars" id="scoreBars"></div>
+            <div class="score-total"><span id="scoreTotal">—</span><span class="score-stars" id="scoreStars" aria-label="stars">☆☆☆</span></div>
+            <p class="score-msg" id="scoreMsg">Trace stroke 1. The little brass dot shows where to start.</p>
+          </div>
+          <button class="brass-btn" id="lsNext">Next ›</button>
+        </div>
+        <div class="lesson-notes leather" id="lessonNotes"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JOURNAL ============ -->
+  <section id="view-journal" class="view" data-view="journal" aria-labelledby="journalHeading" hidden>
+    <div class="journal-grid">
+      <div class="journal-left">
+        <div class="date-bar leather">
+          <button class="brass-btn icon-only" id="jPrev" aria-label="Previous day">‹</button>
+          <div class="date-label"><h1 id="journalHeading" class="sr-only">Daily journal</h1><span id="jDate">Today</span><small id="jStatus">a fresh page</small></div>
+          <button class="brass-btn icon-only" id="jNext" aria-label="Next day">›</button>
+          <button class="brass-btn" id="jToday">Today</button>
+        </div>
+        <div class="prompt-card">
+          <span class="prompt-kicker">Today’s prompt</span>
+          <p id="jPrompt" class="prompt-text">…</p>
+          <button class="brass-btn small" id="jShuffle" title="Another prompt">Shuffle prompt</button>
+        </div>
+        <details class="tray-details" id="journalTrayWrap" open>
+          <summary class="tray-summary">Pens &amp; inks</summary>
+          <div class="tray compact" id="journalTrayHost" aria-label="Journal pens and inks"></div>
+        </details>
+        <div class="stamp-drawer leather">
+          <h2 class="side-h">Stamp drawer</h2>
+          <div class="stamp-tray" id="stampTray" role="group" aria-label="Stamps"></div>
+          <div class="seal-row">
+            <label class="field inline"><span>Seal letter</span><input id="sealLetter" maxlength="1" value="I" class="seal-letter" aria-label="Wax seal monogram letter"></label>
+            <div class="seal-colors" id="sealColors" role="radiogroup" aria-label="Wax colour"></div>
+          </div>
+          <button class="brass-btn wide" id="sealPage">Seal today’s page with wax</button>
+        </div>
+        <div class="month-card leather">
+          <h2 class="side-h">This month</h2>
+          <div class="mini-cal" id="jCal"></div>
+        </div>
+      </div>
+      <div class="journal-main">
+        <div class="sheet-toolbar" role="toolbar" aria-label="Journal actions">
+          <label class="field inline"><span>Paper</span><select id="jPaper" class="brass-select small"></select></label>
+          <div class="tb-group">
+            <button class="brass-btn icon-only" id="jUndo" aria-label="Undo"><svg viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 010 12h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" transform="translate(0,-3)"/></svg></button>
+            <button class="brass-btn icon-only" id="jRedo" aria-label="Redo"><svg viewBox="0 0 24 24"><path d="M15 7l5 5-5 5M20 12H10a6 6 0 000 12h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" transform="translate(0,-3)"/></svg></button>
+            <button class="brass-btn play" id="jPlay" aria-pressed="false"><span class="play-ico" aria-hidden="true"></span><span class="lbl">Watch me write</span></button>
+            <button class="brass-btn" id="jPng">Save PNG</button>
+          </div>
+        </div>
+        <div class="blotter">
+          <div class="sheet-scroller">
+            <div class="sheet journal-sheet" id="journalSheet" tabindex="0" aria-label="Journal page. Write, then add stamps from the drawer.">
+              <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+              <div class="sealed-banner" id="sealedBanner" hidden>
+                <p>This page is sealed with wax. Secrets are safe here.</p>
+                <button class="brass-btn" id="breakSeal">Break the seal</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <label class="note-label" for="jNote">Typed margin note <small>(for the bits your handwriting refuses to say)</small></label>
+        <textarea id="jNote" class="note-area" rows="3" placeholder="Dear diary, today I learned that ink is just water with commitment."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIBRARY ============ -->
+  <section id="view-library" class="view" data-view="library" aria-labelledby="libHeading" hidden>
+    <div class="lib-head leather">
+      <div>
+        <h1 id="libHeading" class="section-title">The library drawer</h1>
+        <p class="muted small">Every page is stored as replayable stroke vectors in your browser’s IndexedDB. No cloud. No account. Just you and the drawer.</p>
+      </div>
+      <div class="lib-controls">
+        <label class="sr-only" for="libSearch">Search pages</label>
+        <input id="libSearch" class="title-input small" type="search" placeholder="Search titles…">
+        <label class="sr-only" for="libFilter">Filter</label>
+        <select id="libFilter" class="brass-select small"><option value="all">All pages</option><option value="sheet">Desk sheets</option><option value="journal">Journal pages</option></select>
+        <button class="brass-btn" id="libNew">New sheet</button>
+        <button class="brass-btn" id="libExportAll">Export all (.inkwell)</button>
+        <button class="brass-btn" id="libImport">Import</button>
+      </div>
+    </div>
+    <div class="lib-grid" id="libGrid" role="list"></div>
+    <div class="lib-empty" id="libEmpty" hidden>
+      <svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="20" width="100" height="50" rx="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 34h100M52 27h16" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="52" r="6" fill="currentColor" opacity=".5"/></svg>
+      <p>The drawer is empty. Even the moths are bored.</p>
+      <p class="muted small">Write anything on the desk — it will appear here automatically.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="view-about" class="view" data-view="about" aria-labelledby="aboutHeading" hidden>
+    <div class="about-wrap">
+      <article class="about-card paper-card">
+        <h1 id="aboutHeading" class="section-title dark">About Inkwell</h1>
+        <p class="lead">A quiet desk for loud thoughts. Inkwell turns your stylus, finger or mouse into six writing instruments, lays them on four kinds of paper, and remembers <em>how</em> you wrote — not just what.</p>
+        <h2>How your pages are kept</h2>
+        <p>Every stroke is saved the moment you lift the pen — as vectors (position, pressure, tilt and timing), not pixels — into <strong>IndexedDB</strong>, a database built into your browser. That is why any page can be replayed with <em>Watch me write</em>. Export a <code>.inkwell</code> file to move pages between devices, or PNG / SVG to share them. Nothing ever leaves your device.</p>
+        <h2>Pens &amp; devices</h2>
+        <ul>
+          <li><strong>Stylus</strong> (Apple Pencil, Wacom, S Pen, Surface Pen): true pressure and tilt via Pointer Events.</li>
+          <li><strong>Mouse or finger</strong>: pressure is simulated from speed — slow down for weight, speed up for hairlines.</li>
+          <li><strong>Stylus only</strong> mode in the tray ignores your palm.</li>
+        </ul>
+        <h2>Keyboard</h2>
+        <ul class="kbd-list">
+          <li><kbd>1</kbd>–<kbd>8</kbd> pens &amp; tools</li><li><kbd>[</kbd> <kbd>]</kbd> nib size</li>
+          <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>Z</kbd> undo, +<kbd>Shift</kbd> redo</li><li><kbd>P</kbd> watch me write</li><li><kbd>Esc</kbd> stop / cancel stamp</li>
+        </ul>
+        <p class="muted small">Lesson shapes are simplified practice guides drawn for this site — a good teacher or primer is still the gold standard. Rumour has it the desk cat answers to a certain four-letter word.</p>
+      </article>
+      <article class="about-card leather credits" id="credits">
+        <h2 class="section-title">Made by</h2>
+        <p class="maker">Designed &amp; built by <strong>Kumar Nikhil</strong></p>
+        <ul class="link-list">
+          <li><a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a></li>
+          <li><a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:nkashyapnikhilnk@gmail.com">Email</a></li>
+        </ul>
+        <a class="brass-btn wide" href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a>
+        <p class="gratitude">With gratitude to God — Om Namah Paarvati Pateh, Har Har Mahadev. May God bless you and everyone.</p>
+        <p class="muted small">100% client-side. No sign-up, no trackers, no cookies, no ink stains on your sleeves.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="foot-inner">
+    <p>Designed &amp; built by <strong>Kumar Nikhil</strong> ·
+      <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a> ·
+      <a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="mailto:nkashyapnikhilnk@gmail.com">Email</a> ·
+      <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a></p>
+    <p class="gratitude small">With gratitude to God — Om Namah Paarvati Pateh, Har Har Mahadev. May God bless you and everyone.</p>
+    <p class="muted small" id="footJoke">Our pens never run dry. Your excuses might.</p>
+  </div>
+</footer>
+
+<input type="file" id="importFile" accept=".inkwell,application/json,.json" hidden>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="pawLayer" class="paw-layer" aria-hidden="true"></div>
+<div id="inkSpill" class="ink-spill" aria-hidden="true"></div>
+
+<div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmMsg" hidden>
+  <div class="modal-card paper-card">
+    <p id="confirmMsg" class="modal-msg">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="brass-btn" id="confirmCancel">Keep it</button>
+      <button class="brass-btn danger" id="confirmOk">Yes, do it</button>
+    </div>
+  </div>
+</div>
+
+<noscript><p class="noscript">Inkwell needs JavaScript to uncap its pens. Please enable it.</p></noscript>
+
+<script src="js/util.js" defer></script>
+<script src="js/db.js" defer></script>
+<script src="js/paper.js" defer></script>
+<script src="js/engine.js" defer></script>
+<script src="js/stamps.js" defer></script>
+<script src="js/exporter.js" defer></script>
+<script src="js/lessons.js" defer></script>
+<script src="js/journal.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

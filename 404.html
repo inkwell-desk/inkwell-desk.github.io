@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found — Inkwell</title>
+<meta name="description" content="This page has run out of ink. Head back to the Inkwell desk.">
+<meta name="theme-color" content="#0b1430">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; color: #f1e8d2;
+    background: radial-gradient(900px 600px at 20% 0%, rgba(255,210,130,.14), transparent 60%), linear-gradient(160deg, #0b1430, #070d22); }
+  .card { max-width: 520px; width: 100%; text-align: center; padding: 34px 26px; border-radius: 6px; color: #1f2747;
+    background: #f3ecdb; box-shadow: 0 30px 60px rgba(0,0,0,.5); transform: rotate(-1.2deg); }
+  h1 { font-family: "Bodoni MT", Didot, Georgia, serif; font-style: italic; font-size: clamp(2.4rem, 8vw, 4rem); margin: 0; }
+  .blot { width: 90px; height: 90px; margin: 0 auto 10px; border-radius: 48% 52% 60% 40% / 50% 45% 55% 50%;
+    background: radial-gradient(circle at 40% 35%, #2b4ba8, #0b1430 70%); animation: wob 4s ease-in-out infinite; }
+  @keyframes wob { 50% { border-radius: 60% 40% 45% 55% / 40% 60% 45% 55%; transform: rotate(12deg); } }
+  a { display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px; padding: 0 20px; border-radius: 12px; text-decoration: none; font-weight: 600;
+    color: #1d1406; background: linear-gradient(180deg, #f6e2a4, #c9a24a 50%, #7a5a1e); border: 1px solid rgba(0,0,0,.45); }
+  p { margin: 10px 0 0; }
+  small { display: block; margin-top: 18px; color: #6b5a47; }
+  @media (prefers-reduced-motion: reduce) { .blot { animation: none; } }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="blot" aria-hidden="true"></div>
+    <h1>404</h1>
+    <p>This page ran out of ink before anyone could write it.</p>
+    <a href="https://kumarnikhildeveloperaccount.github.io/inkwell/">Back to the Inkwell desk</a>
+    <small>Designed &amp; built by Kumar Nikhil · <a style="all:unset;cursor:pointer;text-decoration:underline" href="https://kumarnikhildeveloperaccount.github.io/">More projects by Kumar Nikhil →</a></small>
+  </main>
+</body>
+</html>
